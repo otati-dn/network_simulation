@@ -1,0 +1,74 @@
+{
+    "network_name": "Test Network",
+    "routers": [
+        {
+            "id": "R1",
+            "ip": "192.168.1.1",
+            "connections": [
+                {
+                    "target_router": "R2",
+                    "bandwidth": 1000,
+                    "latency": 5
+                },
+                {
+                    "target_router": "R3",
+                    "bandwidth": 500,
+                    "latency": 10
+                }
+            ]
+        },
+        {
+            "id": "R2",
+            "ip": "192.168.1.2",
+            "connections": [
+                {
+                    "target_router": "R1",
+                    "bandwidth": 1000,
+                    "latency": 5
+                },
+                {
+                    "target_router": "R4",
+                    "bandwidth": 2000,
+                    "latency": 2
+                }
+            ]
+        },
+        {
+            "id": "R3",
+            "ip": "192.168.1.3",
+            "connections": [
+                {
+                    "target_router": "R1",
+                    "bandwidth": 500,
+                    "latency": 10
+                },
+                {
+                    "target_router": "R4",
+                    "bandwidth": 1500,
+                    "latency": 8
+                }
+            ]
+        },
+        {
+            "id": "R4",
+            "ip": "192.168.1.4",
+            "connections": [
+                {
+                    "target_router": "R2",
+                    "bandwidth": 2000,
+                    "latency": 2
+                },
+                {
+                    "target_router": "R3",
+                    "bandwidth": 1500,
+                    "latency": 8
+                }
+            ]
+        }
+    ],
+    "simulation_settings": {
+        "failure_probability": 0.1,
+        "max_delay": 1000,
+        "simulation_duration": 3600
+    }
+} 

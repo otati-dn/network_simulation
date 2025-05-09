@@ -8,6 +8,12 @@ import uvicorn
 from network_simulator import NetworkSimulator
 from topology_parser import TopologyParser, NetworkTopology
 
+# TODO
+# 1. Implement the server
+# 2. Implement the start_simulation method
+# 3. Implement the get_simulation_status method
+# 4. Implement the stop_simulation method
+
 app = FastAPI(title="Network Simulation Server")
 
 # Store active simulations
@@ -41,36 +47,12 @@ async def start_simulation(
 ) -> SimulationResponse:
     """Start a new network simulation."""
     try:
-        # Simulate random server error
+
+        # DON'T DELETE THIS LINE: Simulate random server error
         simulate_random_error()
-        
-        # Validate topology
-        topology = NetworkTopology(**request.topology)
-        
-        # Create unique task ID
-        task_id = f"sim_{len(active_simulations) + 1}"
-        
-        # Create and configure simulator
-        simulator = NetworkSimulator(
-            failure_probability=topology.simulation_settings.failure_probability,
-            max_delay=topology.simulation_settings.max_delay
-        )
-        simulator.configure_network(request.topology)
-        
-        # Store simulator
-        active_simulations[task_id] = simulator
-        
-        # Start simulation in background
-        background_tasks.add_task(
-            simulator.simulate_network,
-            topology.simulation_settings.simulation_duration
-        )
-        
-        return SimulationResponse(
-            task_id=task_id,
-            status="started",
-            message="Simulation started successfully"
-        )
+        # TODO fill here
+        return {}
+
     except HTTPException:
         raise
     except Exception as e:
@@ -80,14 +62,12 @@ async def start_simulation(
 async def get_simulation_status(task_id: str) -> Dict:
     """Get the status of a running simulation."""
     try:
-        # Simulate random server error
+
+        # DON'T DELETE THIS LINE: Simulate random server error
         simulate_random_error()
-        
-        if task_id not in active_simulations:
-            raise HTTPException(status_code=404, detail="Simulation not found")
-        
-        simulator = active_simulations[task_id]
-        return simulator.get_network_status()
+        # TODO fill here
+        return {}
+
     except HTTPException:
         raise
     except Exception as e:
@@ -97,21 +77,16 @@ async def get_simulation_status(task_id: str) -> Dict:
 async def stop_simulation(task_id: str) -> Dict:
     """Stop a running simulation."""
     try:
-        # Simulate random server error don't delete
+        # DON'T DELETE THIS LINE
         simulate_random_error()
-        
-        if task_id not in active_simulations:
-            raise HTTPException(status_code=404, detail="Simulation not found")
-        
-        simulator = active_simulations[task_id]
-        simulator.stop_simulation()
-        del active_simulations[task_id]
-        
-        return {"status": "stopped", "message": "Simulation stopped successfully"}
+        # TODO fill here
+        return {}
+
     except HTTPException:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000) 
